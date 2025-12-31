@@ -1,0 +1,65 @@
+//cree un programa en c usando malloc y puntero calcule la cantidad de bytes que diez int s ocupan en memoria.
+Aquí tienes un programa en C que usa malloc y punteros para calcular la cantidad de bytes que ocupan diez enteros (int) en memoria:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int cantidad = 10; // Cantidad de enteros
+    int *ptr; // Puntero para almacenar la dirección de memoria
+    
+    // Asignar memoria para 10 enteros usando malloc
+    ptr = (int*)malloc(cantidad * sizeof(int));
+    
+    if (ptr == NULL) {
+        printf("Error: No se pudo asignar memoria.\n");
+        return 1; // Salir con código de error
+    }
+    
+    // Calcular el tamaño total en bytes
+    size_t total_bytes = cantidad * sizeof(int);
+    
+    printf("Diez enteros (int) ocupan %zu bytes en memoria.\n", total_bytes);
+    printf("Cada int ocupa %zu bytes en este sistema.\n", sizeof(int));
+    
+    // Liberar la memoria asignada (buena práctica)
+    free(ptr);
+    
+    return 0; // Salir exitosamente
+}
+```
+
+Explicación del programa:
+
+1. Inclusión de bibliotecas:
+   · stdio.h: Para funciones de entrada/salida como printf.
+   · stdlib.h: Para funciones de manejo de memoria como malloc y free.
+2. Variables:
+   · cantidad: Almacena el número de enteros (10).
+   · *ptr: Puntero que almacenará la dirección de memoria asignada.
+3. Asignación de memoria:
+   · malloc(cantidad * sizeof(int)): Reserva memoria para 10 enteros.
+   · (int*): Conversión explícita del tipo (aunque en C no es estrictamente necesario, es una buena práctica).
+4. Verificación:
+   · Se verifica si malloc devolvió NULL (fallo en la asignación).
+5. Cálculo de bytes:
+   · sizeof(int): Devuelve el tamaño en bytes de un int (depende del sistema, comúnmente 4 bytes).
+   · total_bytes: Almacena el tamaño total (10 × tamaño de un int).
+6. Salida:
+   · Muestra el total de bytes ocupados y el tamaño de un int en el sistema.
+7. Liberación de memoria:
+   · free(ptr): Libera la memoria asignada (importante para evitar fugas de memoria).
+
+Ejecución esperada (en un sistema donde int ocupa 4 bytes):
+
+```
+Diez enteros (int) ocupan 40 bytes en memoria.
+Cada int ocupa 4 bytes en este sistema.
+```
+
+Notas:
+
+· El tamaño de int varía según la arquitectura del sistema (comúnmente 4 bytes en sistemas modernos de 32/64 bits).
+· %zu es el especificador de formato para size_t (tipo retornado por sizeof).
+· Siempre libera la memoria asignada con malloc usando free.
